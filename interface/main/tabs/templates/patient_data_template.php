@@ -29,6 +29,9 @@
                 <i class="fa fa-list fa-stack-1x" aria-hidden="true"></i>
                 <strong><i style="margin: 10px 0 0 10px;" class="fa fa-search fa-stack-x" aria-hidden="true"></i></strong>
             </a></span>
+            <!-- ko if: patient -->
+                <?php echo "<img src=\"".$GLOBALS['patient_photo_category_name']."\" style='width:30pt;height:30pt;position:absolute;left:50pt;'>"; ?>
+            <!-- /ko -->
             <div class="patientInfo">
                 <?php echo xlt("Patient"); ?>:
                 <!-- ko if: patient -->
@@ -41,7 +44,7 @@
                     <?php echo xlt("None");?>
                 <!-- /ko -->
                 <!-- ko if: patient -->
-                    <a class="css_button_small" href="#" class="clear" data-bind="click:clearPatient" title="<?php echo xlt("Clear") ?>">
+                    <a class="css_button_small" style="margin-right:40pt;" href="#" class="clear" data-bind="click:clearPatient" title="<?php echo xlt("Clear") ?>">
                         <i style="font-size:150%;" class="fa fa-times"></i>
                     </a>
                 <!-- /ko -->
