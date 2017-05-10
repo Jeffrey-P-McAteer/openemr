@@ -32,7 +32,12 @@
             <!-- ko if: patient -->
                 <?php /*echo "<img src=\"/controller.php?document&retrieve&patient_id=00&document_id=".$GLOBALS['patient_photo_category_name']."&\" style='width:30pt;height:30pt;position:absolute;left:50pt;'>";*/ ?>
                 <?php /*echo "<span data-bind=\"click:refreshPatient,with: patient\"> <img style='width:30pt;height:30pt;position:absolute;left:50pt;' data-bind=\"attr:{src: '/controller.php?document&retrieve&patient_id=' + pubpid() + '&document_id=".$GLOBALS['patient_photo_category_name']."&'}\"></span>";*/ ?>
-                <?php echo "<span data-bind=\"click:refreshPatient,with: patient\"> <img style='width:30pt;height:30pt;position:absolute;left:50pt;' data-bind=\"attr:{src: '/controller.php?document&retrieve&patient_id=' + pubpid() + '&document_id=2&'}\"></span>"; ?>
+                <span data-bind="click:refreshPatient,with: patient">
+                    <object style='width:30pt;height:30pt;position:absolute;left:50pt;' type="image/png" data-bind="attr:{data: '/controller.php?document&retrieve&patient_id=' + pubpid() + '&document_id=2&'}">
+                        <!-- todo use a local image w/proper attribution stuff -->
+                        <img style='width:30pt;height:30pt;' src="https://tracker.moodle.org/secure/attachment/30912/f3.png">
+                    </object>
+                </span>
             <!-- /ko -->
             <div class="patientInfo">
                 <?php echo xlt("Patient"); ?>:
