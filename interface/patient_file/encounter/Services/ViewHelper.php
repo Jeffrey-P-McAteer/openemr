@@ -85,15 +85,16 @@ class ViewHelper
     static function createEncounterMenu(array $elements)
     {
         // Standard menu item with no dropdown
-        $menuListItem = '<li><a href="{href}" {class} {atts} >{linkText}</a></li>';
+        $menuListItem = '<li><a href="{href}" {class} {atts} ><i class="fa fa-fw"></i>&nbsp;{linkText}</a></li>';
 
-        $submenuListItem = '<li><a href="{href}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{linkText}</a>';
+        $submenuListItem = '<li><a href="{href}" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">{linkText}</a>';
 
         // Standard menu item dropdown support
-        $menuListItemWithDropdown = '<li class="dropdown"><a href="{href}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{linkText}&nbsp;<i class="fa fa-chevron-down"></i></a>{submenuList}</li>';
+        $iconChevronDirection = $_SESSION['language_direction'] == 'rtl' ? 'fa-chevron-left' : 'fa-chevron-right';
+        $menuListItemWithDropdown = '<li class="dropdown"><a href="{href}" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw ' . $iconChevronDirection .'"></i>&nbsp;{linkText}</a>{submenuList}</li>';
 
         // Dropdown menu
-        $submenuList = '<ul class="dropdown-menu">{submenuListItems}</ul>';
+        $submenuList = '<ul class="nav navbar-stacked hidden submenu">{submenuListItems}</ul>';
 
         $menu = "";
         foreach ($elements as $group) {
@@ -156,7 +157,7 @@ class ViewHelper
 
                 $elementContainer = str_replace("{href}", $group['href'], $elementContainer);
 
-                $menu = $menu . str_replace("{linkText}", $group['name'], $elementContainer);
+                $menu = $menu . str_replace("{linkText}", xlt($group['name']), $elementContainer);
             }
         }
         return $menu;
@@ -210,8 +211,7 @@ class ViewHelper
      */
     static function parseRegistry(array $registry, $oldCategory = '')
     {
-        global $old_category;
-        $prevCategory = '';
+        $prevCategory = 'null';
         $return = array();
         foreach ($registry as $item) {
             $tmp = explode('|', $item['aco_spec']);
@@ -224,23 +224,30 @@ class ViewHelper
             $category = (trim($item['category']) == '') ? xlt("Miscellaneous") : xlt(trim($item['category']));
             $nickname = (trim($item['nickname']) == '') ? $item['name'] : $item['nickname'];
 
+            $formName = urlencode($item['directory']);
+            $rootDir = "/interface";
+            $tmp = [
+                'href' => "{$GLOBALS['rootdir']}/patient_file/encounter/load_form.php?formname={$formName}",
+                'name' => xl_form_title($nickname),
+                'class' => 'menu-item-action',
+            ];
+
+            $previousElement = (count($return) == 0) ? 0 : count($return) - 1;
+
             if ($category == $prevCategory) {
-                $formName = urlencode($item['directory']);
-                $rootDir = "/interface";
-                $tmp = [
-                    'href' => "{$GLOBALS['rootdir']}/patient_file/encounter/load_form.php?formname={$formName}",
-                    'name' => xl_form_title($nickname),
-                    'class' => 'menu-item-action'
-                ];
-                $return[count($return) - 1]['subItems'][] = $tmp;
+                $return[$previousElement]['subItems'][] = $tmp;
             } else {
                 $return[] = [
                     'name' => $category,
-                    'href' => '#'
+                    'href' => '#',
+                    'subItems' => [
+                        $tmp
+                    ],
                 ];
             }
 
             $prevCategory = $category;
+
         }
 
         return $return;

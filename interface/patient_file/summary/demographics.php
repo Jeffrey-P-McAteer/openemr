@@ -19,13 +19,7 @@
  * @link    http://www.open-emr.org
  */
 
-//SANITIZE ALL ESCAPES
-$sanitize_all_escapes=true;
-//
 
-//STOP FAKE REGISTER GLOBALS
-$fake_register_globals=false;
-//
 
  require_once("../../globals.php");
  require_once("$srcdir/patient.inc");
@@ -1310,7 +1304,7 @@ expand_collapse_widget($widgetTitle, $widgetLabel, $widgetButtonLabel,
     // Show Clinical Reminders for any user that has rules that are permitted.
     $clin_rem_check = resolve_rules_sql('','0',TRUE,'',$_SESSION['authUser']);
     if (!empty($clin_rem_check) && $GLOBALS['enable_cdr'] && $GLOBALS['enable_cdr_crw'] &&
-        acl_check('patients', 'reminder'))
+        acl_check('patients', 'alert'))
     {
         // clinical summary expand collapse widget
         $widgetTitle = xl("Clinical Reminders");
@@ -1320,7 +1314,7 @@ expand_collapse_widget($widgetTitle, $widgetLabel, $widgetButtonLabel,
         $widgetButtonClass = "";
         $linkMethod = "html";
         $bodyClass = "summary_item small";
-        $widgetAuth = acl_check('patients', 'reminder', '', 'write');
+        $widgetAuth = acl_check('patients', 'alert', '', 'write');
         $fixedWidth = false;
         expand_collapse_widget($widgetTitle, $widgetLabel, $widgetButtonLabel , $widgetButtonLink, $widgetButtonClass, $linkMethod, $bodyClass, $widgetAuth, $fixedWidth);
         echo "<br/>";

@@ -21,8 +21,8 @@ Use Esign\Api;
  * @link    http://www.open-emr.org
  */
 
-$fake_register_globals=false;
-$sanitize_all_escapes=true;
+
+
 
 /* Include our required headers */
 require_once('../../globals.php');

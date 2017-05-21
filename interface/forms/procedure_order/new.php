@@ -215,20 +215,7 @@ $enrow = sqlQuery("SELECT p.fname, p.mname, p.lname, fe.date FROM " .
 <?php html_header_show(); ?>
 
 <?php $include_standard_style_js = array("datetimepicker"); ?>
-<?php require($GLOBALS['srcdir'] . '/templates/standard_header_template.php'); ?>
-<link rel="stylesheet" href="<?php echo $css_header;?>" type="text/css" />
-<link rel="stylesheet" href="<?php echo $GLOBALS['assets_static_relative'] ?>/bootstrap-3-3-4/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo $GLOBALS['assets_static_relative'] ?>/font-awesome-4-6-3/css/font-awesome.min.css">
-<?php if($_SESSION['language_direction'] == 'rtl'): ?>
-<link rel="stylesheet" href="<?php echo $GLOBALS['assets_static_relative'];?>/bootstrap-rtl-3-3-4/dist/css/bootstrap-rtl.min.css" type="text/css">
-<?php endif; ?>
-<link rel="stylesheet" href="<?php echo $GLOBALS['assets_static_relative']; ?>/jquery-datetimepicker-2-5-4/build/jquery.datetimepicker.min.css">
-
-<script type="text/javascript" src="<?php echo $GLOBALS['assets_static_relative']; ?>/jquery-min-3-1-1/index.js"></script>
-<script type="text/javascript" src="../../../library/dialog.js?v=<?php echo $v_js_includes; ?>"></script>
-<script type="text/javascript" src="<?php echo $GLOBALS['webroot'] ?>/library/textformat.js?v=<?php echo $v_js_includes; ?>"></script>
-<script type="text/javascript" src="<?php echo $GLOBALS['assets_static_relative']; ?>/jquery-datetimepicker-2-5-4/build/jquery.datetimepicker.full.min.js"></script>
-<script src="<?php echo $GLOBALS['assets_static_relative'] ?>/bootstrap-3-3-4/dist/js/bootstrap.min.js"></script>
+<?php require "{$GLOBALS['srcdir']}/templates/standard_header_template.php"; ?>
 
 <script type="text/javascript">
 
@@ -606,10 +593,10 @@ $(document).ready(function() {
                 </div>
             </div>
             <div class="btn-group pull-right" role="group">
-                <button type="button" class="btn btn-default" onclick="addProcLine()"><i class="fa fa-plus"></i>&nbsp;<?php echo xla('Add Procedure'); ?></button>
-                <button type="submit" class="btn btn-default" name='bn_save' value="save" onclick='transmitting = false;'><i class="fa fa-check"></i>&nbsp;<?php echo xla('Save'); ?></button>
-                <button type="submit" class="btn btn-default" name='bn_xmit' value="transmit" onclick='transmitting = true;' ><i class="fa fa-arrow-right"></i>&nbsp;<?php echo xla('Save and Transmit'); ?></button>
-                <button type="button" class="btn btn-link" onclick="top.restoreSession();location='<?php echo $GLOBALS['form_exit_url']; ?>'"><i class="fa fa-times"></i>&nbsp;<?php echo xla('Cancel'); ?></button>
+                <button type="button" class="btn btn-default btn-add" onclick="addProcLine()"><?php echo xla('Add Procedure'); ?></button>
+                <button type="submit" class="btn btn-default btn-save" name='bn_save' value="save" onclick='transmitting = false;'><?php echo xla('Save'); ?></button>
+                <button type="submit" class="btn btn-default btn-transmit" name='bn_xmit' value="transmit" onclick='transmitting = true;' ><?php echo xla('Save and Transmit'); ?></button>
+                <button type="button" class="btn btn-link btn-cancel" onclick="top.restoreSession();location='<?php echo $GLOBALS['form_exit_url']; ?>'"><?php echo xla('Cancel'); ?></button>
             </div>
             <div class="clearfix"></div>
         </form>

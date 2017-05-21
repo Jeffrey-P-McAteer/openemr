@@ -5,13 +5,15 @@
  *
  * Example code in script:
  *    $include_standard_style_js = array("datetimepicker"); (php command and optional)
- *    require($GLOBALS['srcdir'] . '/templates/standard_header_template.php'); (php command)
+ *    require "{$GLOBALS['srcdir']}/templates/standard_header_template.php"; (php command)
  *
  * The $include_standard_style_js supports:
  *                                         jquery-ui (brings in just the js script)
  *                                         jquery-ui-darkness (brings in the darkness style)
  *                                         datetimepicker
  *                                         report_helper.js
+ *                                         include_opener.js
+ *                                         topdialog.js
  *
  *
  * Copyright (C) 2017 Brady Miller <brady.g.miller@gmail.com>
@@ -32,7 +34,7 @@
  * @link    http://www.open-emr.org
  */
 ?>
-<link rel="stylesheet" href="<?php echo $css_header;?>" type="text/css">
+<link rel="stylesheet" href="<?php echo $GLOBALS['css_header'];?>" type="text/css">
 <link rel="stylesheet" href="<?php echo $GLOBALS['assets_static_relative'] ?>/bootstrap-3-3-4/dist/css/bootstrap.min.css">
 <?php if ($_SESSION['language_direction'] == 'rtl') { ?>
     <link rel="stylesheet" href="<?php echo $GLOBALS['assets_static_relative'] ?>/bootstrap-rtl-3-3-4/dist/css/bootstrap-rtl.min.css">
@@ -54,9 +56,15 @@
     <script type="text/javascript" src="<?php echo $GLOBALS['assets_static_relative']; ?>/jquery-datetimepicker-2-5-4/build/jquery.datetimepicker.full.min.js"></script>
 <?php } ?>
 <?php if (!empty($include_standard_style_js) && in_array("report_helper.js",$include_standard_style_js)) { ?>
-    <script type="text/javascript" src="<?php echo $GLOBALS['webroot'] ?>/library/js/report_helper.js?v=<?php echo $v_js_includes; ?>"></script>
+    <script type="text/javascript" src="<?php echo $GLOBALS['webroot'] ?>/library/js/report_helper.js?v=<?php echo $GLOBALS['v_js_includes']; ?>"></script>
 <?php } ?>
-<script type="text/javascript" src="<?php echo $GLOBALS['webroot'] ?>/library/textformat.js?v=<?php echo $v_js_includes; ?>"></script>
-<script type="text/javascript" src="<?php echo $GLOBALS['webroot'] ?>/library/dialog.js?v=<?php echo $v_js_includes; ?>"></script>
+<?php if (!empty($include_standard_style_js) && in_array("include_opener.js",$include_standard_style_js)) { ?>
+    <script type="text/javascript" src="<?php echo $GLOBALS['webroot'] ?>/interface/main/tabs/js/include_opener.js?v=<?php echo $GLOBALS['v_js_includes']; ?>"></script>
+<?php } ?>
+<?php if (!empty($include_standard_style_js) && in_array("topdialog.js",$include_standard_style_js)) { ?>
+    <script type="text/javascript" src="<?php echo $GLOBALS['webroot'] ?>/library/topdialog.js?v=<?php echo $GLOBALS['v_js_includes']; ?>"></script>
+<?php } ?>
+<script type="text/javascript" src="<?php echo $GLOBALS['webroot'] ?>/library/textformat.js?v=<?php echo $GLOBALS['v_js_includes']; ?>"></script>
+<script type="text/javascript" src="<?php echo $GLOBALS['webroot'] ?>/library/dialog.js?v=<?php echo $GLOBALS['v_js_includes']; ?>"></script>
 
 <?php $include_standard_style_js = array(); //clear this to prevent issues if this is called again in an embedded script ?>

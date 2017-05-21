@@ -1,12 +1,6 @@
 <?php
 
-//SANITIZE ALL ESCAPES
-$sanitize_all_escapes=true;
-//
 
-//STOP FAKE REGISTER GLOBALS
-$fake_register_globals=false;
-//
 
 //INCLUDES, DO ANY ACTIONS, THEN GET OUR DATA
 include_once("../globals.php");

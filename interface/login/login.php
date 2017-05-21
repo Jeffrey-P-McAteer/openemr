@@ -25,8 +25,8 @@
  * @link    http://www.open-emr.org
  */
 
-$fake_register_globals=false;
-$sanitize_all_escapes=true;
+
+
 
 $ignoreAuth=true;
 require_once("../globals.php");
@@ -38,7 +38,7 @@ require_once("../globals.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <?php $include_standard_style_js = array("jquery-ui","jquery-ui-darkness"); ?>
-    <?php require($GLOBALS['srcdir'] . '/templates/standard_header_template.php'); ?>
+    <?php require "{$GLOBALS['srcdir']}/templates/standard_header_template.php"; ?>
 
     <link rel="stylesheet" href="../themes/login.css?v=<?php echo $v_js_includes; ?>" type="text/css">
 
@@ -282,11 +282,11 @@ require_once("../globals.php");
                             </div>
                         </div>
                     <?php endif; // End language menu block ?>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-block btn-large" onClick="transmit_form()"><i class="fa fa-sign-in"></i>&nbsp;<?php echo xlt('Login');?></button>
+                    <div class="form-group pull-right">
+                        <button type="submit" class="btn btn-default btn-lg" onClick="transmit_form()"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;<?php echo xlt('Login');?></button>
                     </div>
                 </div>
-                <div class="col-sm-12 text-right">
+                <div class="col-sm-12 text-center">
                     <p class="small">
                         <a href="../../acknowledge_license_cert.html" target="main"><?php echo xlt('Acknowledgments, Licensing and Certification'); ?></a>
                     </p>
