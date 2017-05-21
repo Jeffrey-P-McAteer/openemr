@@ -4005,6 +4005,7 @@ class ComposerStaticInit22ddb69348c7ed922c96325249cef3d0
         'services\\FacilityService' => __DIR__ . '/../..' . '/services/FacilityService.php',
         'services\\ONoteService' => __DIR__ . '/../..' . '/services/ONoteService.php',
         'services\\PatientService' => __DIR__ . '/../..' . '/services/PatientService.php',
+        'services\\PatientInformationService' => __DIR__ . '/../..' . '/services/PatientInformationService.php',
         'services\\ProductRegistrationService' => __DIR__ . '/../..' . '/services/ProductRegistrationService.php',
         'services\\UserService' => __DIR__ . '/../..' . '/services/UserService.php',
         'services\\VersionService' => __DIR__ . '/../..' . '/services/VersionService.php',

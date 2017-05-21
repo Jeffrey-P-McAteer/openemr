@@ -3750,6 +3750,7 @@ return array(
     'services\\FacilityService' => $baseDir . '/services/FacilityService.php',
     'services\\ONoteService' => $baseDir . '/services/ONoteService.php',
     'services\\PatientService' => $baseDir . '/services/PatientService.php',
+    'services\\PatientInformationService' => $baseDir . '/services/PatientInformationService.php',
     'services\\ProductRegistrationService' => $baseDir . '/services/ProductRegistrationService.php',
     'services\\UserService' => $baseDir . '/services/UserService.php',
     'services\\VersionService' => $baseDir . '/services/VersionService.php',
