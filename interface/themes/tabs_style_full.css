@@ -303,7 +303,7 @@ div.closeDlgIframe:before {
 }
 .patientInfo
 {
-    padding: 1px 1px 1px 10px;
+    padding: 1px 1px 1px 120px;
 }
 
 .patientInfo .clear:hover i {
