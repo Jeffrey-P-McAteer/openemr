@@ -21,16 +21,15 @@
  */
 
 
-
+use OpenEMR\Core\Header;
 require_once("../globals.php");
 ?>
 
 <html>
 
 <head>
-<?php html_header_show();?>
 
-<?php require "{$GLOBALS['srcdir']}/templates/standard_header_template.php"; ?>
+<?php Header::setupHeader(); ?>
 
 <title><?php echo xlt('Background Services'); ?></title>
 

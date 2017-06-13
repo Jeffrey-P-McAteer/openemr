@@ -21,7 +21,7 @@
  */
 
 
-
+use OpenEMR\Core\Header;
 require_once("../globals.php");
 require_once("../../library/patient.inc");
 require_once "$srcdir/options.inc.php";
@@ -31,12 +31,10 @@ require_once "$srcdir/clinical_rules.php";
 <html>
 
 <head>
-<?php html_header_show();?>
 
 <title><?php echo xlt('Alerts Log'); ?></title>
 
-<?php $include_standard_style_js = array("datetimepicker"); ?>
-<?php require "{$GLOBALS['srcdir']}/templates/standard_header_template.php"; ?>
+<?php Header::setupHeader('datetime-picker'); ?>
 
 <script LANGUAGE="JavaScript">
 

@@ -6,6 +6,7 @@
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
 
+use OpenEMR\Core\Header;
 include_once("../globals.php");
 include_once($GLOBALS['srcdir'] . "/patient.inc");
 
@@ -77,7 +78,7 @@ if ($_POST['formaction']=="generate") {
     $frow = sqlQuery("SELECT * FROM users WHERE id = ?", array($form_from));
     $trow = sqlQuery("SELECT * FROM users WHERE id = ?", array($form_to));
 
-    $datestr = date('j F Y', strtotime($form_date));
+    $datestr = $form_date;
     $from_title = $frow['title'] ? $frow['title'] . ' ' : '';
     $to_title   = $trow['title'] ? $trow['title'] . ' ' : '';
 
@@ -155,9 +156,9 @@ if ($_POST['formaction']=="generate") {
     }
     else { // $form_format = html
         $cpstring = text($cpstring); //escape to prevent stored cross script attack
-	$cpstring = str_replace("\n", "<br>", $cpstring);
-	$cpstring = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $cpstring);
-    ?>
+	    $cpstring = str_replace("\n", "<br>", $cpstring);
+	    $cpstring = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $cpstring);
+        ?>
         <html>
         <head>
         <style>
@@ -188,7 +189,7 @@ if ($_POST['formaction']=="generate") {
 	<div class='paddingdiv'>
 	<?php echo $cpstring; ?>
         <div class="navigate">
-	<a href="<?php echo $GLOBALS['rootdir'] . '/patient_file/letter.php?template=autosaved'; ?>">(<?php echo xlt('Back'); ?>)</a>
+	<a href='<?php echo $GLOBALS['rootdir'] . '/patient_file/letter.php?template=autosaved'; ?>' onclick='top.restoreSession()'>(<?php echo xlt('Back'); ?>)</a>
 	</div>
 	<script language='JavaScript'>
 	window.print();
@@ -303,11 +304,8 @@ while ($srow = sqlFetchArray($sres)) {
 
 <html>
 <head>
-<?php html_header_show();?>
 <title><?php echo xlt('Letter Generator'); ?></title>
-
-<?php $include_standard_style_js = array("datetimepicker","topdialog.js"); ?>
-<?php require "{$GLOBALS['srcdir']}/templates/standard_header_template.php"; ?>
+<?php Header::setupHeader(['datetime-picker', 'topdialog']); ?>
 
 <script language="JavaScript">
 <?php echo $ulist; ?>
@@ -425,8 +423,8 @@ function insertAtCursor(myField, myValue) {
 
   <td>
    <input type='text' size='10' name='form_date' id='form_date' class='datepicker form-control'
-    value='<?php echo date('Y-m-d'); ?>'
-    title='<?php echo xlt('yyyy-mm-dd date of this letter'); ?>' />
+    value='<?php echo oeFormatShortDate(date('Y-m-d')); ?>'
+    title='<?php echo xlt('Date of this letter'); ?>' />
   </td>
 
  </tr>
@@ -598,7 +596,7 @@ $(document).ready(function(){
     $('.datepicker').datetimepicker({
         <?php $datetimepicker_timepicker = false; ?>
         <?php $datetimepicker_showseconds = false; ?>
-        <?php $datetimepicker_formatInput = false; ?>
+        <?php $datetimepicker_formatInput = true; ?>
         <?php require($GLOBALS['srcdir'] . '/js/xl/jquery-datetimepicker-2-5-4.js.php'); ?>
         <?php // can add any additional javascript settings to datetimepicker here; need to prepend first setting with a comma ?>
     });
@@ -618,7 +616,7 @@ $(document).ready(function(){
         // the template name can only have letters, numbers, spaces and underscores
         // AND it cannot start with a number
         if ($("#newtemplatename").val().match(/^\d+/)) {
-            alert("<?php xl('Template names cannot start with numbers.','e'); ?>");
+            alert("<?php echo xls('Template names cannot start with numbers.'); ?>");
             return false;
         }
         var validname = $("#newtemplatename").val().replace(/[^A-za-z0-9]/g, "_"); // match any non-word characters and replace them
