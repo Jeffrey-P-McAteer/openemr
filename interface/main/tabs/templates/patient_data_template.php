@@ -31,7 +31,7 @@
             </a></span>
             <!-- ko if: patient -->
                 <span data-bind="click:refreshPatient,with: patient">
-                    <?php echo "<img style='width:30pt;height:30pt;position:absolute;left:50pt;' src=\"".(\services\PatientInformationService::getProfileImage())."\">" ?>
+                    <?php echo "<img class=\"patientImage\" src=\"".(\services\PatientInformationService::getProfileImage())."\">" ?>
                 </span>
             <!-- /ko -->
             <div class="patientInfo">

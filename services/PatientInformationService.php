@@ -35,24 +35,30 @@ class PatientInformationService {
 		// From interface/patient_file/summary/patient_picture.php
 		$picture_directory = "Patient Photograph"; //change this if you want
 	    $pics = array();
-	    $sql_query = "select documents.id from documents join categories_to_documents on documents.id = categories_to_documents.document_id join categories on categories.id = categories_to_documents.category_id where categories.name like ? and documents.foreign_id = ?";
+	    $sql_query = "select documents.url from documents join categories_to_documents on documents.id = categories_to_documents.document_id join categories on categories.id = categories_to_documents.category_id where categories.name like ? and documents.foreign_id = ?";
 	    if ($query = sqlStatement($sql_query, array($picture_directory, $_SESSION['pid']) )) {
 	      while( $results = sqlFetchArray($query) ) {
-	        $tmp = $results['id'];
+	        $tmp = $results['url'];
 	        if (isset($tmp)) {
-	        	// todo covnert $tmp to 'file:///var/www/html/sites/default/documents/1/snow.jpg', then parse out to URL '/sites/default/documents/1/snow.jpg'
-	        	array_push($pics, $GLOBALS['webroot']."/controller.php?document&retrieve&patient_id=".htmlspecialchars($_SESSION['pid'],ENT_QUOTES)."&document_id=".htmlspecialchars($tmp,ENT_QUOTES)."&as_file=false'");
+	        	array_push($pics, $tmp);
 	        }
 	      }
 	    }
+	    $file_url = "";
 	    if (count($pics) < 1) {
 	    	return "/public/images/def-profile.png";
 	    }
 	    else if (count($pics) == 1) {
-	    	return strval($pics[0]);
+	    	$file_url = strval($pics[0]);
 	    }
-	    // We have to choose? Should we query for a preferred pic? Choose randomly?
-	    return strval($pics[0]);
+	    else {
+	    	// We have to choose? Should we query for a preferred pic? Choose randomly?
+	    	$file_url = strval($pics[0]);
+	    }
+	    // Modify URL to match web directory from browser (bit of a hack? No idea where authority for "sites/default" is, sounds like an apache default setting)
+	    $known_uri_needle = strrpos($file_url, "/sites/default/documents");
+	    $file_url = substr($file_url, $known_uri_needle, strlen($file_url));
+	    return $file_url;
  	}
 	
 }

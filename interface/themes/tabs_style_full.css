@@ -312,6 +312,13 @@ div.closeDlgIframe:before {
     color: #ff5d5a;
 }
 
+img.patientImage {
+    width: 30pt;
+    height: 30pt;
+    position: absolute;
+    left: 50pt;
+}
+
 .top {
     vertical-align:top;
 }
