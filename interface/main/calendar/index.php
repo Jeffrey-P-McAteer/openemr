@@ -58,14 +58,14 @@ if ($_POST['pc_facility'])  $_SESSION['pc_facility'] = $_POST['pc_facility'];
 if (isset($_COOKIE['pc_facility']) && $GLOBALS['set_facility_cookie']) $_SESSION['pc_facility'] = $_COOKIE['pc_facility'];
 // override the cookie if the user doesn't have access to that facility any more
 if ($_SESSION['userauthorized'] != 1 && $GLOBALS['restrict_user_facility']) {
-  $facilities = getUserFacilities($_SESSION['authId']);
+    $facilities = getUserFacilities($_SESSION['authId']);
   // use the first facility the user has access to, unless...
-  $_SESSION['pc_facility'] = $facilities[0]['id'];
+    $_SESSION['pc_facility'] = $facilities[0]['id'];
   // if the cookie is in the users' facilities, use that.
-  foreach ($facilities as $facrow) {
-    if (($facrow['id'] == $_COOKIE['pc_facility']) && $GLOBALS['set_facility_cookie'])
-      $_SESSION['pc_facility'] = $_COOKIE['pc_facility'];
-  }
+    foreach ($facilities as $facrow) {
+        if (($facrow['id'] == $_COOKIE['pc_facility']) && $GLOBALS['set_facility_cookie'])
+        $_SESSION['pc_facility'] = $_COOKIE['pc_facility'];
+    }
 }
 if (isset($_POST['pc_facility']))  $_SESSION['pc_facility'] = $_POST['pc_facility'];
 /********************************************************************/
@@ -79,9 +79,6 @@ if (isset($_REQUEST['viewtype'])) $_SESSION['viewtype'] = $_REQUEST['viewtype'];
 
 
 
-//if (empty($_GET['no_nav'])) {
-//        $_SESSION['last_calendar_page'] = $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'];
-//}
 /*
 print_r($_POST);
 print_r($_GET);
@@ -161,7 +158,7 @@ if ($modinfo['type'] == 2)
         // duh?
     }
 
-	exit;
+    exit;
 } else {
     // Old-old style of loading modules
     if (empty($op)) {

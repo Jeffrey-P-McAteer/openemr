@@ -6,7 +6,7 @@
  * Copyright (C) 2005 Rod Roark <rod@sunsetsystems.com>
  * Copyright (C) 2015 Roberto Vasquez <robertogagliotta@gmail.com>
  * Copyright (C) 2015 Brady Miller <brady.g.miller@gmail.com>
- * 
+ *
  * LICENSE: This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
@@ -40,59 +40,59 @@
   $thisauth = 0;
 
  if (!$thisauth) {
-  echo "<html>\n<body>\n";
-  echo "<p>" .xlt('You are not authorized for this.'). "</p>\n";
-  echo "</body>\n</html>\n";
-  exit();
- }
+     echo "<html>\n<body>\n";
+     echo "<p>" .xlt('You are not authorized for this.'). "</p>\n";
+     echo "</body>\n</html>\n";
+     exit();
+    }
 
- $alertmsg = ""; // anything here pops up in an alert box
- $endjs = "";    // holds javascript to write at the end
+    $alertmsg = ""; // anything here pops up in an alert box
+    $endjs = "";    // holds javascript to write at the end
 
  // If the Save button was clicked...
- if ($_POST['form_save']) {
-  $form_pid = $_POST['form_pid'];
-  $form_pelist = $_POST['form_pelist'];
-  // $pattern = '|/(\d+),(\d+),([YN])|';
-  $pattern = '|/(\d+),(\d+)|';
+    if ($_POST['form_save']) {
+        $form_pid = $_POST['form_pid'];
+        $form_pelist = $_POST['form_pelist'];
+        // $pattern = '|/(\d+),(\d+),([YN])|';
+        $pattern = '|/(\d+),(\d+)|';
 
-  preg_match_all($pattern, $form_pelist, $matches);
-  $numsets = count($matches[1]);
+        preg_match_all($pattern, $form_pelist, $matches);
+        $numsets = count($matches[1]);
 
-  $query = "DELETE FROM issue_encounter WHERE pid = ?";
-  sqlQuery($query, array($form_pid));
-  for ($i = 0; $i < $numsets; ++$i) {
-   $list_id   = $matches[1][$i];
-   $encounter = $matches[2][$i];
-   $query = "INSERT INTO issue_encounter ( " .
-    "pid, list_id, encounter" .
-    ") VALUES ( " .
-    " ?, ?, ?" .
-    ")";
-   sqlQuery($query, array($form_pid, $list_id, $encounter));
-  }
+        $query = "DELETE FROM issue_encounter WHERE pid = ?";
+        sqlQuery($query, array($form_pid));
+        for ($i = 0; $i < $numsets; ++$i) {
+            $list_id   = $matches[1][$i];
+            $encounter = $matches[2][$i];
+            $query = "INSERT INTO issue_encounter ( " .
+             "pid, list_id, encounter" .
+             ") VALUES ( " .
+             " ?, ?, ?" .
+             ")";
+            sqlQuery($query, array($form_pid, $list_id, $encounter));
+        }
 
-  echo "<html><body>"
-  ."<script type=\"text/javascript\" src=\"". $webroot ."/interface/main/tabs/js/include_opener.js\"></script>"
-  . "<script language='JavaScript'>\n";
-  if ($alertmsg) echo " alert('" . addslashes($alertmsg) . "');\n";
-  echo " var myboss = opener ? opener : parent;\n";
-  echo " myboss.location.reload();\n";
-  echo " window.close();\n";
-  echo "</script></body></html>\n";
-  exit();
- }
+        echo "<html><body>"
+        ."<script type=\"text/javascript\" src=\"". $webroot ."/interface/main/tabs/js/include_opener.js\"></script>"
+        . "<script language='JavaScript'>\n";
+        if ($alertmsg) echo " alert('" . addslashes($alertmsg) . "');\n";
+        echo " var myboss = opener ? opener : parent;\n";
+        echo " myboss.location.reload();\n";
+        echo " window.close();\n";
+        echo "</script></body></html>\n";
+        exit();
+    }
 
  // get problems
- $pres = sqlStatement("SELECT * FROM lists WHERE pid = ? " .
-  "ORDER BY type, date", array($pid));
+    $pres = sqlStatement("SELECT * FROM lists WHERE pid = ? " .
+    "ORDER BY type, date", array($pid));
 
  // get encounters
- $eres = sqlStatement("SELECT * FROM form_encounter WHERE pid = ? " .
-  "ORDER BY date DESC", array($pid));
+    $eres = sqlStatement("SELECT * FROM form_encounter WHERE pid = ? " .
+    "ORDER BY date DESC", array($pid));
 
  // get problem/encounter relations
- $peres = sqlStatement("SELECT * FROM issue_encounter WHERE pid = ?", array($pid));
+    $peres = sqlStatement("SELECT * FROM issue_encounter WHERE pid = ?", array($pid));
 ?>
 <html>
 <head>
@@ -137,20 +137,6 @@ function newIssue() {
  var f = document.forms[0];
  var tmp = (keyid && f.form_key[1].checked) ? ('?enclink=' + keyid) : '';
  dlgopen('summary/add_edit_issue.php' + tmp, '_blank', 600, 475);
-}
-
-// New Encounter button is clicked.
-function newEncounter() {
- var f = document.forms[0];
- if (!f.form_save.disabled) {
-  if (!confirm('<?php echo xls('This will abandon your unsaved changes. Are you sure?'); ?>'))
-   return;
- }
- top.restoreSession();
- var tmp = (keyid && f.form_key[0].checked) ? ('&issue=' + keyid) : '';
- opener.top.Title.location.href='encounter/encounter_title.php';
- opener.top.Main.location.href='encounter/patient_encounter.php?mode=new' + tmp;
- window.close();
 }
 
 // Determine if a given problem/encounter pair is currently linked.
@@ -285,11 +271,11 @@ function doclick(pfx, id) {
  echo "<input type='hidden' name='form_pid' value='" . attr($pid) . "' />\n";
  // pelist looks like /problem,encounter/problem,encounter/[...].
  echo "<input type='hidden' name='form_pelist' value='/";
- while ($row = sqlFetchArray($peres)) {
+while ($row = sqlFetchArray($peres)) {
   // echo $row['list_id'] . "," . $row['encounter'] . "," .
   //  ($row['resolved'] ? "Y" : "N") . "/";
-  echo text($row['list_id']) . "," . text($row['encounter']) . "/";
- }
+    echo text($row['list_id']) . "," . text($row['encounter']) . "/";
+}
  echo "' />\n";
 ?>
 
@@ -316,15 +302,15 @@ function doclick(pfx, id) {
      <td><?php echo xlt('Description'); ?></td>
     </tr>
 <?php
- while ($row = sqlFetchArray($pres)) {
-  $rowid = $row['id'];
-  echo "    <tr class='detail' id='p_" . attr($rowid) . "' onclick='doclick(\"p\", " . attr(addslashes($rowid)) . ")'>\n";
-  echo "     <td valign='top'>" . text($ISSUE_TYPES[($row['type'])][1]) . "</td>\n";
-  echo "     <td valign='top'>" . text($row['title']) . "</td>\n";
-  echo "     <td valign='top'>" . text($row['comments']) . "</td>\n";
-  echo "    </tr>\n";
-  $endjs .= "pselected['" . attr($rowid) . "'] = '';\n";
- }
+while ($row = sqlFetchArray($pres)) {
+    $rowid = $row['id'];
+    echo "    <tr class='detail' id='p_" . attr($rowid) . "' onclick='doclick(\"p\", " . attr(addslashes($rowid)) . ")'>\n";
+    echo "     <td valign='top'>" . text($ISSUE_TYPES[($row['type'])][1]) . "</td>\n";
+    echo "     <td valign='top'>" . text($row['title']) . "</td>\n";
+    echo "     <td valign='top'>" . text($row['comments']) . "</td>\n";
+    echo "    </tr>\n";
+    $endjs .= "pselected['" . attr($rowid) . "'] = '';\n";
+}
 ?>
    </table>
   </td>
@@ -341,14 +327,14 @@ function doclick(pfx, id) {
      <td><?php echo xlt('Presenting Complaint'); ?></td>
     </tr>
 <?php
- while ($row = sqlFetchArray($eres)) {
-  $rowid = $row['encounter'];
-  echo "    <tr class='detail' id='e_" . attr($rowid) . "' onclick='doclick(\"e\", " . attr(addslashes($rowid)) . ")'>\n";
-  echo "     <td valign='top'>" . text(substr($row['date'], 0, 10)) . "</td>\n";
-  echo "     <td valign='top'>" . text($row['reason']) . "</td>\n";
-  echo "    </tr>\n";
-  $endjs .= "eselected['" . attr($rowid) . "'] = '';\n";
- }
+while ($row = sqlFetchArray($eres)) {
+    $rowid = $row['encounter'];
+    echo "    <tr class='detail' id='e_" . attr($rowid) . "' onclick='doclick(\"e\", " . attr(addslashes($rowid)) . ")'>\n";
+    echo "     <td valign='top'>" . text(substr($row['date'], 0, 10)) . "</td>\n";
+    echo "     <td valign='top'>" . text($row['reason']) . "</td>\n";
+    echo "    </tr>\n";
+    $endjs .= "eselected['" . attr($rowid) . "'] = '';\n";
+}
 ?>
    </table>
   </td>
@@ -374,9 +360,9 @@ in that section to add and delete relationships.'); ?>
 <script>
 <?php
  echo $endjs;
- if ($_REQUEST['issue']) {
-  echo "doclick('p', " . attr(addslashes($_REQUEST['issue'])) . ");\n";
- }
+if ($_REQUEST['issue']) {
+    echo "doclick('p', " . attr(addslashes($_REQUEST['issue'])) . ");\n";
+}
  if ($alertmsg) echo "alert('" . addslashes($alertmsg) . "');\n";
 ?>
 </script>
