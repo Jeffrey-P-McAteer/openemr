@@ -19,6 +19,7 @@
             <span style="float:left;"><a data-bind="click: viewPtFinder" href="#" class="btn btn-default btn-sm">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </a></span>
+            <!-- get result of \services\PatientInformationService::getProfileImage() -->
             <div class="patientInfo" style="float: left">
               <!-- ko if: patient -->
                   <div data-bind="with: patient" class="patientPicture">
