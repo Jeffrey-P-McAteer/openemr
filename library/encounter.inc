@@ -12,9 +12,9 @@ function setencounter($enc)
     global $attendant_type;
 
     $attendant_id = $attendant_type == 'pid' ? $pid : $_SESSION['therapy_group'];
-    if ($enc == "" ) {
+    if ($enc == "") {
         $enc = date("Ymd");
-        if (getFormByEncounter($attendant_id,$enc)) {
+        if (getFormByEncounter($attendant_id, $enc)) {
             //there is an encounter enterred for today
         } else {
             //addForm($enc, "New Patient Encounter", 0, $pid, 1);
@@ -32,5 +32,13 @@ function setencounter($enc)
     return $return_val;
 }
 
-?>
 
+//fetches encounter pc_catid by encounter number
+function fetchCategoryIdByEncounter($encounter)
+{
+    global $attendant_type;
+    $table = $attendant_type == 'pid' ? 'form_encounter' : 'form_groups_encounter';
+    $sql = "select pc_catid from $table where encounter=? limit 1";
+    $result = sqlQuery($sql, array($encounter));
+    return $result['pc_catid'];
+}

@@ -13,7 +13,7 @@
 
         "mpdf/mpdf": "6.1.3",
         "adldap2/adldap2": "7.0.4",
-        "smarty/smarty": "2.6.29",
+        "smarty/smarty": "2.6.*",
         "adodb/adodb-php": "5.20.9",
         "phpmailer/phpmailer": "5.2.16",
         "rospdf/pdf-php": "0.12.22",
@@ -70,7 +70,7 @@
             "OpenEMR\\Encounter\\Services\\": "interface/patient_file/encounter/Services",
             "OpenEMR\\Admin\\": "library/admin/src",
             "OpenEMR\\Core\\": "library/core/src",
-            "OpenEMR\\Menu\\": "library/menu",
+            "OpenEMR\\Menu\\": "library/menu/src",
             "OpenEMR\\Calendar\\": "library/calendar/src",
             "OpenEMR\\Sample\\": "library/sample/src"
         }

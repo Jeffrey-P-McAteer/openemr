@@ -454,8 +454,28 @@ INSERT INTO `list_options` (`list_id`, `option_id`, `title`, `seq`, `is_default`
 ALTER TABLE `users` ADD `main_menu_role` VARCHAR(50) NOT NULL DEFAULT 'standard';
 #EndIf
 
+#IfMissingColumn openemr_postcalendar_categories aco_spec
+ALTER TABLE `openemr_postcalendar_categories` ADD COLUMN `aco_spec` VARCHAR(63) NOT NULL DEFAULT 'encounters|notes';
+#EndIf
 #IfNotRow2D list_options list_id lists option_id apps
 INSERT INTO list_options (list_id,option_id,title) VALUES ('lists','apps','Apps');
 INSERT INTO list_options (list_id,option_id,title,seq,is_default,activity) VALUES ('apps','*OpenEMR','main/main_screen.php',10,1,0);
 INSERT INTO list_options (list_id,option_id,title,seq,is_default,activity) VALUES ('apps','Calendar','main/calendar/index.php',20,0,0);
 #EndIf
+
+#IfNotColumnType list_options list_id varchar(100)
+ALTER TABLE `list_options` CHANGE `list_id` `list_id` VARCHAR(100) NOT NULL DEFAULT '';
+#EndIf
+
+#IfNotColumnType list_options option_id varchar(100)
+ALTER TABLE `list_options` CHANGE `option_id` `option_id` VARCHAR(100) NOT NULL DEFAULT '';
+#EndIf
+
+#IfNotColumnType layout_options list_id varchar(100)
+ALTER TABLE `layout_options` CHANGE `list_id` `list_id` VARCHAR(100) NOT NULL DEFAULT '';
+#EndIf
+
+#IfNotColumnType layout_options list_backup_id varchar(100)
+ALTER TABLE `layout_options` CHANGE `list_backup_id` `list_backup_id` VARCHAR(100) NOT NULL DEFAULT '';
+#EndIf
+
