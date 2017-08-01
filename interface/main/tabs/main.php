@@ -131,6 +131,7 @@ var xl_strings_tabs_view_model = <?php echo json_encode(array(
 <script type="text/javascript" src="js/application_view_model.js?v=<?php echo $v_js_includes; ?>"></script>
 <script type="text/javascript" src="js/frame_proxies.js?v=<?php echo $v_js_includes; ?>"></script>
 <script type="text/javascript" src="js/dialog_utils.js?v=<?php echo $v_js_includes; ?>"></script>
+<script type="text/javascript" src="js/patientimage.js"></script>
 
 <?php
 // Below code block is to prepare certain elements for deciding what links to show on the menu

@@ -24,6 +24,7 @@
               <!-- ko if: patient -->
                   <div data-bind="with: patient" class="patientPicture">
                       <img data-bind="attr: {src: patient_picture()}"
+                           id="patient_profile_pic"
                            class="img-thumbnail"
                            onError="this.src = '<?php echo $GLOBALS['images_static_relative']; ?>/patient-picture-default.png'" />
                   </div>

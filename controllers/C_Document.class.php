@@ -163,6 +163,10 @@ class C_Document extends Controller
                     if ($rc) {
                         $error .= $rc . "\n";
                     } else {
+                        // see if the file being uploaded has a category that matches $GLOBALS['patient_photo_category_name']
+                        if ($category_id == 10) {
+                            $this->assign("should_refresh_patient_image", true);
+                        }
                         $this->assign("upload_success", "true");
                     }
                     $sentUploadStatus[] = $d;
